@@ -2,6 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 import lxml
 import os
+import keyboard
 
 allNews = []
 
@@ -70,5 +71,10 @@ if __name__ == "__main__":
     
     allNews.sort()
 
+    i = 0
     for n in allNews:
         print(f"\u2022 {n[0]} {n[1]}\t{n[2].center(22)}", end = "\n" * 2)
+        i+=1
+        if (i % 5) == 0:
+            print("Для продолжения нажмите клавишу \"Пробел\"")
+            keyboard.wait("space")
