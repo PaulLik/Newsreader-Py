@@ -17,7 +17,6 @@ def interfax():
         if "Фотохроника" in news[n].text or "Что произошло в мире науки" in news[n].text:
             continue
         else:
-            #print(f"\u2022 {times[n].text} Интерфакс:\t{news[n].text}", end = "\n" * 2)
             allNews.append([times[n].text, "Интерфакс", news[n].text])
 
 
@@ -28,7 +27,6 @@ def kommersant():
     lenta = soup.find("div", class_="rubric_lenta")
     news = lenta.find_all("h2")
     for n in news:
-        #print(f"\u2022 Коммерсант:\t{n.text}", end = "\n" * 2)
         allNews.append(["", "Коммерсант", n.text])
 
 
@@ -49,7 +47,6 @@ def dddnews():
         article = n.find("a")
         articleTime = article.get("title").split(" ")[1]
         articleText = article.text
-        #print(f"\u2022 3D News, {articleTime}, Hardware:\t{articleText}", end = "\n" * 2)
         allNews.append([articleTime, "3D News Hardware", articleText])
     news_hw = soup.find("div", class_="allnews-col rncol")
     news = news_hw.find_all("li", class_ = "header")
@@ -61,7 +58,6 @@ def dddnews():
         article = n.find("a")
         articleTime = article.get("title").split(" ")[1]
         articleText = article.text
-        #print(f"\u2022 3D News, {articleTime}, Software:\t{articleText}", end = "\n" * 2)
         allNews.append([articleTime, "3D News Software", articleText])
 
 
