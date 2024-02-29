@@ -7,6 +7,22 @@ import sys
 
 allNews = []
 
+def hyphen(string: str, identation: int = 22) -> str:
+    txt = ""
+    if len(string) > 57:
+        words = string.split()
+        txtLines = 1
+        for w in words:
+            if len(txt + w) > 70 * txtLines:
+                txt = txt + "\n" + " " * (identation + 6) + "\t" + w
+                txtLines += 1
+            else:
+                txt = txt + " " + w
+    else:
+        txt = string
+    return txt.lstrip()
+
+
 def interfax():
     url ="https://www.interfax.ru/"
     response = requests.get(url)
@@ -19,7 +35,7 @@ def interfax():
         if "Фотохроника" in news[n].text or "Что произошло в мире науки" in news[n].text:
             continue
         else:
-            allNews.append([times[n].text, "Интерфакс", news[n].text])
+            allNews.append([times[n].text, "Интерфакс", hyphen(news[n].text, 16)])
 
 
 def kommersant():
@@ -29,7 +45,7 @@ def kommersant():
     lenta = soup.find("div", class_="rubric_lenta")
     news = lenta.find_all("h2")
     for n in news:
-        allNews.append(["", "Коммерсант", n.text])
+        allNews.append(["", "Коммерсант", hyphen(n.text, 17)])
 
 
 def dddnews():
@@ -46,7 +62,7 @@ def dddnews():
         article = n.find("a")
         articleTime = article.get("title").split(" ")[1]
         articleText = article.text
-        allNews.append([articleTime, "3D News Hardware", articleText])
+        allNews.append([articleTime, "3D News Hardware", hyphen(articleText)])
     news_hw = soup.find("div", class_="allnews-col rncol")
     news = news_hw.find_all("li", class_ = "header")
     for n in news:
@@ -57,7 +73,7 @@ def dddnews():
         article = n.find("a")
         articleTime = article.get("title").split(" ")[1]
         articleText = article.text
-        allNews.append([articleTime, "3D News Software", articleText])
+        allNews.append([articleTime, "3D News Software", hyphen(articleText, 22)])
 
 
 if __name__ == "__main__":
@@ -77,11 +93,11 @@ if __name__ == "__main__":
 
     i = 0
     for n in allNews:
-        print(f"\u2022 {n[0]} {n[1]}\t{n[2].center(28)}", end = "\n" * 2)
+        print(f"\u2022 {n[0]} {n[1]}\t{n[2]}", end = "\n" * 2)
         i+=1
         if breakOutput == True:
             if (i % linesOut) == 0:
-                print("Для продолжения любую клавишу, \"Esc\" - выход\n\n")
+                print("\x1b[33mДля продолжения любую клавишу, \"Esc\" - выход\x1b[0m\n\n")
                 keypressed = msvcrt.getch()
                 if keypressed == b'\x1b':
                     sys.exit()
