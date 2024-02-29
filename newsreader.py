@@ -56,7 +56,7 @@ def dddnews():
     news = news_hw.find_all("li", class_ = "header")
     for n in news:
         #if ["strong"] in n.get("class"):
-        #    color = "\033[1;35;40m "
+        #    color = "\033[1;35;40m"
         #else:
         #    color = "\033[0;37;44m"
         article = n.find("a")
@@ -97,7 +97,7 @@ if __name__ == "__main__":
         i+=1
         if breakOutput == True:
             if (i % linesOut) == 0:
-                print("\x1b[33mДля продолжения любую клавишу, \"Esc\" - выход\x1b[0m\n\n")
+                print("\x1b[92mДля продолжения любую клавишу, \"Esc\" - выход\x1b[0m\n\n")
                 keypressed = msvcrt.getch()
                 if keypressed == b'\x1b':
                     sys.exit()
